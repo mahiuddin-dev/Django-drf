@@ -1,10 +1,9 @@
 import requests
 
-endpoit = "http://127.0.0.1:8000/api/product/4/"
+endpoit = "http://127.0.0.1:8000/api/product/12/"
 
-# get_response = requests.get(endpoit,params={"product_id":123} ,json={"query":"hello World"}) # Get method
 
-get_response = requests.get(endpoit) # Get method
+get_response = requests.get(endpoit)
 
-# print(get_response.headers)
+
 print(get_response.json())

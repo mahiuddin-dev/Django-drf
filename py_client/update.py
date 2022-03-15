@@ -1,6 +1,6 @@
 import requests
 
-endpoit = "http://127.0.0.1:8000/api/product/7/update/"
+endpoit = "http://127.0.0.1:8000/api/product/12/update/"
 
 data = {
     'title': 'Hello I am a new title',
