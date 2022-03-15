@@ -3,7 +3,7 @@ from .models import Product
 from .serializers import ProductSerializer
 
 
-class ProductCreateAPIView(generics.CreateAPIView):
+class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
@@ -14,6 +14,11 @@ class ProductCreateAPIView(generics.CreateAPIView):
         if description is None:
             description  = title
         serializer.save(description=description)
+
+class ProductListAPIView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
 
 class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
