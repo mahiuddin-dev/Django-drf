@@ -6,12 +6,12 @@ from rest_framework.response import Response
 from .permissions import EditPermission
 
 from django.shortcuts import get_object_or_404
-
+from api.authentication import TokenAuthentication
 
 class ProductListCreateAPIView(generics.ListCreateAPIView): 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    authentication_classes = [authentication.SessionAuthentication]
+    authentication_classes = [authentication.SessionAuthentication,TokenAuthentication]
     permission_classes = [permissions.IsAdminUser,EditPermission]
 
     def perform_create(self, serializer):
