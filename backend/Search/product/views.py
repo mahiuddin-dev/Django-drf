@@ -3,10 +3,10 @@ from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from api.mixins import EditPermissionMixin
+from api.mixins import EditPermissionMixin,UserQuerySetMixin
 from django.shortcuts import get_object_or_404
 
-class ProductListCreateAPIView(EditPermissionMixin,generics.ListCreateAPIView): 
+class ProductListCreateAPIView(UserQuerySetMixin,EditPermissionMixin,generics.ListCreateAPIView): 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
@@ -16,19 +16,29 @@ class ProductListCreateAPIView(EditPermissionMixin,generics.ListCreateAPIView):
         description = serializer.validated_data.get('description') or None
         if description is None:
             description  = title
-        serializer.save(description=description)
+        serializer.save(user=self.request.user,description=description)
+    
 
-class ProductDetailView(EditPermissionMixin,generics.RetrieveAPIView):
+    # def get_queryset(self, *args, **kwargs):
+    #     query = super().get_queryset(*args, **kwargs)
+    #     user = self.request.user
+
+    #     if not user.is_authenticated:
+    #         return query.none()
+
+    #     return query.filter(user=user)
+
+class ProductDetailView(UserQuerySetMixin,EditPermissionMixin,generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     # lookup_field = 'id'
 
-class ProductUpdateAPIView(EditPermissionMixin,generics.UpdateAPIView):
+class ProductUpdateAPIView(UserQuerySetMixin,EditPermissionMixin,generics.UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
 
-class ProductDeleteAPIView(EditPermissionMixin,generics.DestroyAPIView):
+class ProductDeleteAPIView(UserQuerySetMixin,EditPermissionMixin,generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'

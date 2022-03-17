@@ -18,7 +18,17 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['url','edit_url','pk','title','name','description','price','sale_price','my_discount']
+        fields = [
+            # 'user',
+            'url',
+            'edit_url',
+            'pk',
+            'title',
+            'description',
+            'price',
+            'sale_price',
+            'my_discount'
+        ]
 
     # def validate_title(self,value):
     #     qs = Product.objects.filter(title__iexact=value)
