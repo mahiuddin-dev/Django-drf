@@ -1,7 +1,12 @@
 from django.db import models
 from django.conf import settings
 from django.db.models import Q
+
+import random
 # Create your models here.
+
+TAGS_MODEL_VALUE = ['education', 'entertainment', 'food', 'health', 'sport', 'travel']
+
 User = settings.AUTH_USER_MODEL
 
 class ProductQuerySet(models.QuerySet):
@@ -41,3 +46,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+    def is_public(self) -> bool:
+        return self.public
+    
+    def get_tags_list(self):
+        return [random.choice(TAGS_MODEL_VALUE)]

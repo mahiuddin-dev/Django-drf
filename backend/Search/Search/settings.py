@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd party apps
+    'algoliasearch_django',
     'rest_framework',
     'rest_framework.authtoken',
     
@@ -128,4 +129,16 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10,
+}
+
+	
+
+# ALGOLIA = {
+#     'APPLICATION_ID': '431YZOHOIG',
+#     'API_KEY': '20c4c44fadbea6e92db2bcfafab73c49'
+# }
+ALGOLIA = {
+    'APPLICATION_ID': '431YZOHOIG',
+    'API_KEY': 'bf94dde19f593fce3fe07f97f028b755',
+    'INDEX_PREFIX': 'Search'
 }
