@@ -22,7 +22,6 @@ class ProductListCreateAPIView(UserQuerySetMixin,EditPermissionMixin,generics.Li
     # def get_queryset(self, *args, **kwargs):
     #     query = super().get_queryset(*args, **kwargs)
     #     user = self.request.user
-
     #     if not user.is_authenticated:
     #         return query.none()
 

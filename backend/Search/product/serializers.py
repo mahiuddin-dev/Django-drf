@@ -2,19 +2,22 @@ from rest_framework import serializers
 from rest_framework.reverse import reverse
 from .models import Product
 from .validations import validate_title
-
+from api.serializers import UserPublicData
 
 class ProductSerializer(serializers.ModelSerializer):
     my_discount = serializers.SerializerMethodField(read_only=True)
+    # my_user_data = serializers.SerializerMethodField(read_only=True)
 
     url = serializers.SerializerMethodField(read_only=True) # One way to do it is to use the get_url function
 
     edit_url = serializers.HyperlinkedIdentityField(view_name='product:product_update_view',lookup_field='pk') # Another way to do it
 
-    # email = serializers.EmailField(write_only=True)
 
     title = serializers.CharField(validators=[validate_title])
     # name = serializers.CharField(source='title', read_only=True)
+
+    # user = UserPublicData(read_only=True)
+    # email = serializers.EmailField(source='user.email',read_only=True)
 
     class Meta:
         model = Product
@@ -22,13 +25,20 @@ class ProductSerializer(serializers.ModelSerializer):
             # 'user',
             'url',
             'edit_url',
+            # 'email',
             'pk',
             'title',
             'description',
             'price',
             'sale_price',
-            'my_discount'
+            'my_discount',
+            # 'my_user_data'
         ]
+
+    # def get_my_user_data(self, obj):
+    #     return {
+    #         "username": obj.user.username
+    #     }
 
     # def validate_title(self,value):
     #     qs = Product.objects.filter(title__iexact=value)
