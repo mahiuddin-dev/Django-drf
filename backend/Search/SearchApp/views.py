@@ -1,9 +1,32 @@
+from django.test import tag
 from rest_framework import generics
 from product.models import Product
 from product.serializers import ProductSerializer
+from rest_framework.response import Response
+from . import client
 # Create your views here.
 
-class SearchListView(generics.ListAPIView):
+
+class SearchListView(generics.GenericAPIView):
+
+    def get(self, request, *args, **kwargs):
+        user = None
+        if request.user.is_authenticated:
+            user = request.user.username
+
+        query = request.GET.get('q')
+        public = str(request.GET.get('public')) != 0
+        tag = request.GET.get('tag') or None
+
+        if not query:
+            return Response('',status=400)
+
+        results = client.perform_search(query,tags=tag,user=user,public=public)
+        
+        return Response(results)
+
+
+class SearchListOldView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 

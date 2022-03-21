@@ -4,7 +4,7 @@ from django.contrib import admin
 from . import models
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'price', 'sale_price', 'user')
+    list_display = ('title', 'price', 'sale_price', 'user','public')
     list_filter = ['user']
     search_fields = ('title', 'description',)
     
