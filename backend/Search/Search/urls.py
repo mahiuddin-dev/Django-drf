@@ -7,5 +7,5 @@ urlpatterns = [
     path('api/', include('api.urls', namespace='api')),
     path('api/product/', include('product.urls', namespace='product')),
     path('api/v2/', include('Search.routers')),
-    path('',include('SearchApp.urls', namespace='SearchApp')),
+    path('api/search/',include('SearchApp.urls', namespace='SearchApp')),
 ]

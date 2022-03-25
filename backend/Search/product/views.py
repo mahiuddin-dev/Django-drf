@@ -37,10 +37,20 @@ class ProductUpdateAPIView(UserQuerySetMixin,EditPermissionMixin,generics.Update
     serializer_class = ProductSerializer
     lookup_field = 'pk'
 
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        if not instance.content:
+            instance.content = instance.title
+        
+
 class ProductDeleteAPIView(UserQuerySetMixin,EditPermissionMixin,generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
+
+    def perform_destroy(self, instance):
+        # instance 
+        super().perform_destroy(instance)
 
 
 # Product mixins
